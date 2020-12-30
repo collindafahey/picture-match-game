@@ -7,22 +7,21 @@ const serverApi = createApi({
 
 // call my collection from unsplash api
 export default function handleGetImages(req, res) {
-  serverApi.collections.getPhotos({ collectionId: '52048212' }).then(result => {
-    if (result.errors) {
-      // handle error here
-      console.log('error occurred: ', result.errors[0]);
-    } else {
-      const feed = result.response;
-  
-      // extract total and results array from response
-      const { total, results } = feed;
-  
-      // handle success here
-      console.log(`received ${results.length} photos out of ${total}`);
-      // console.log('first photo: ', results[0]);
-
-      res.statusCode = 200;
-      res.json({ images: feed });
-    }
-  });
+  serverApi.collections
+    .getPhotos({ collectionId: "52048212" })
+    .then((result) => {
+      // set status code
+      res.statusCode = result.status;
+      if (result.errors) {
+        // handle errors
+        res.json({ errors: result.errors });
+      } else {
+        // handle success
+        const feed = result.response;
+        // extract total & results array from response
+        const { total, results } = feed;
+        console.log(`received ${results.length} photos out of ${total}`);
+        res.json({ images: feed });
+      }
+    });
 }
