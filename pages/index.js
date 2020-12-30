@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import useSWR from "swr";
+import Board from "../src/components/Board.js";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -21,35 +22,7 @@ export default function Home() {
         ) : !data ? (
           <div>loading...</div>
         ) : (
-          <div className={styles.grid}>
-            <div className={styles.card}>
-              <img src={data.images.results[0].urls.small} />
-            </div>
-            <div className={styles.card}>
-              <img src={data.images.results[1].urls.small} />
-            </div>
-            <div className={styles.card}>
-              <img src={data.images.results[2].urls.small} />
-            </div>
-            <div className={styles.card}>
-              <img src={data.images.results[3].urls.small} />
-            </div>
-            <div className={styles.card}>
-              <img src={data.images.results[4].urls.small} />
-            </div>
-            <div className={styles.card}>
-              <img src={data.images.results[5].urls.small} />
-            </div>
-            <div className={styles.card}>
-              <img src={data.images.results[6].urls.small} />
-            </div>
-            <div className={styles.card}>
-              <img src={data.images.results[7].urls.small} />
-            </div>
-            <div className={styles.card}>
-              <img src={data.images.results[8].urls.small} />
-            </div>
-          </div>
+          <Board data={data.images.results} />
         )}
         <div className={styles.aside}>
           <p>Attempts: 0</p>
