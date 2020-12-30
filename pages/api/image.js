@@ -1,7 +1,7 @@
 import { createApi } from "unsplash-js";
 
 const serverApi = createApi({
-  accessKey: '',
+  accessKey: process.env.ACCESS_KEY,
   //...other fetch options
 });
 
