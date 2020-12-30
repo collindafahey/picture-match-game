@@ -1,7 +1,38 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import useSWR from 'swr'
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  // more efficient route
+  // const fetcher = url => fetch(url).then(r => r.json())
+  // const { data, error } = useSWR('/api/image', fetcher)
+
+  // longer route
+  const [data, setData] = useState(null)
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/image')
+      .then(response => {
+        if (response.status !== 200) { 
+          // handle non-200 error
+          setData(new Error())
+        } else { 
+          response.json() 
+        }
+      })
+      .then(data => {
+        setData(data)
+      }).catch(error => {
+        // handle other errors
+        setData(new Error())
+      })
+  },
+    []
+  )
+
+  console.log(data)
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,22 +47,32 @@ export default function Home() {
 
         <div className={styles.grid}>
           <div className={styles.card}>
+            {/* <img src={images[0]} /> */}
+            {/* <CardImage /> */}
           </div>
           <div className={styles.card}>
+            {/* <CardImage /> */}
           </div>
           <div className={styles.card}>
+            {/* <CardImage /> */}
           </div>
           <div className={styles.card}>
+            {/* <CardImage /> */}
           </div>
           <div className={styles.card}>
+            {/* <CardImage /> */}
           </div>
           <div className={styles.card}>
+            {/* <CardImage /> */}
           </div>
           <div className={styles.card}>
+            {/* <CardImage /> */}
           </div>
           <div className={styles.card}>
+            {/* <CardImage /> */}
           </div>
           <div className={styles.card}>
+            {/* <CardImage /> */}
           </div>
         </div>
 
