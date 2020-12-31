@@ -4,31 +4,25 @@ import styles from "../../styles/Board.module.css";
 import Card from "./Card.js";
 
 const getArrayOfIndexes = () => {
-  // return an array of 6 random numbers between 0 & 11, without repeating values
+  // return an array of 6 random number pairs between 0 & 11
   const origIndexArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   const tempIndexArray = sampleSize(origIndexArray, 6);
+  const indexPairsArray = tempIndexArray.concat(tempIndexArray);
 
-  return tempIndexArray;
+  return indexPairsArray;
 };
 
 export default function Board(props) {
   const [indexArray, setIndexArray] = useState();
   const newArray = getArrayOfIndexes();
 
+  // TODO: scramble array before assigning index to each card
+
   return (
     <div className={styles.grid}>
-      <Card imgSrc={props.data[Math.floor(Math.random() * 12)].urls.small} />
-      <Card imgSrc={props.data[Math.floor(Math.random() * 12)].urls.small} />
-      <Card imgSrc={props.data[Math.floor(Math.random() * 12)].urls.small} />
-      <Card imgSrc={props.data[Math.floor(Math.random() * 12)].urls.small} />
-      <Card imgSrc={props.data[Math.floor(Math.random() * 12)].urls.small} />
-      <Card imgSrc={props.data[Math.floor(Math.random() * 12)].urls.small} />
-      <Card imgSrc={props.data[Math.floor(Math.random() * 12)].urls.small} />
-      <Card imgSrc={props.data[Math.floor(Math.random() * 12)].urls.small} />
-      <Card imgSrc={props.data[Math.floor(Math.random() * 12)].urls.small} />
-      <Card imgSrc={props.data[Math.floor(Math.random() * 12)].urls.small} />
-      <Card imgSrc={props.data[Math.floor(Math.random() * 12)].urls.small} />
-      <Card imgSrc={props.data[Math.floor(Math.random() * 12)].urls.small} />
+      {newArray.map((item, index) => (
+        <Card key={index} imgSrc={props.data[item].urls.small} />
+      ))}
     </div>
   );
 }
