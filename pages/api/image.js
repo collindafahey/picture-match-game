@@ -8,7 +8,7 @@ const serverApi = createApi({
 // call my collection from unsplash api
 export default function handleGetImages(req, res) {
   serverApi.collections
-    .getPhotos({ collectionId: "52048212" })
+    .getPhotos({ collectionId: "52048212", perPage: 12 })
     .then((result) => {
       // set status code
       res.statusCode = result.status;
