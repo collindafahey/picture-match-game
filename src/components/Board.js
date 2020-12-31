@@ -1,5 +1,6 @@
 import { useState } from "react";
 import sampleSize from "lodash.samplesize";
+import shuffle from "lodash.shuffle";
 import styles from "../../styles/Board.module.css";
 import Card from "./Card.js";
 
@@ -15,12 +16,11 @@ const getArrayOfIndexes = () => {
 export default function Board(props) {
   const [indexArray, setIndexArray] = useState();
   const newArray = getArrayOfIndexes();
-
-  // TODO: scramble array before assigning index to each card
+  const shuffledArray = shuffle(newArray);
 
   return (
     <div className={styles.grid}>
-      {newArray.map((item, index) => (
+      {shuffledArray.map((item, index) => (
         <Card key={index} imgSrc={props.data[item].urls.small} />
       ))}
     </div>
