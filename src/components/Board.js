@@ -20,7 +20,11 @@ export default function Board(props) {
   return (
     <div className={styles.grid}>
       {indexArray.map((item, index) => (
-        <Card key={index} imgSrc={props.data[item].urls.small} />
+        <Card
+          key={index}
+          imgSrc={props.data[item].urls.small}
+          increaseCount={props.increaseCount}
+        />
       ))}
     </div>
   );

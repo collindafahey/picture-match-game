@@ -11,12 +11,14 @@ export default function Home() {
   const { data, error } = useSWR("/api/image", fetcher);
 
   const [count, setCount] = useState(0);
-  const [attempts, setAttempts] = useState(0);
 
-  // increase attempt by 1
-  const increaseAttempts = useCallback(() => {
-    setAttempts((prevAttempts) => prevAttempts + 1);
+  // increase count by 1 on click
+  const increaseCount = useCallback(() => {
+    setCount((prevCount) => prevCount + 1);
   }, []);
+
+  // increase attempt by 1 every second click
+  const attempts = Math.trunc(count / 2);
 
   return (
     <div className={styles.container}>
@@ -31,7 +33,7 @@ export default function Home() {
         ) : !data ? (
           <div>loading...</div>
         ) : (
-          <Board data={data.images.results} />
+          <Board data={data.images.results} increaseCount={increaseCount} />
         )}
         <div className={styles.aside}>
           <p>Attempts: {attempts}</p>
