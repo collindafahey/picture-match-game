@@ -17,11 +17,14 @@ const getArrayOfIndexes = () => {
 export default function Board(props) {
   const [indexArray] = useState(() => getArrayOfIndexes());
 
+  console.log(props);
+
   return (
     <div className={styles.grid}>
       {indexArray.map((item, index) => (
         <Card
           key={index}
+          description={props.data[item].alt_description}
           imgSrc={props.data[item].urls.small}
           increaseCount={props.increaseCount}
         />

@@ -11,7 +11,13 @@ export default function Card(props) {
 
   return (
     <div className={styles.card} onClick={onClick}>
-      {isFlipped && <img className={styles.img} src={props.imgSrc} />}
+      {isFlipped && (
+        <img
+          className={styles.img}
+          src={props.imgSrc}
+          alt={props.description}
+        />
+      )}
     </div>
   );
 }
