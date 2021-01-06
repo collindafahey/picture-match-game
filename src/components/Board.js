@@ -4,6 +4,8 @@ import shuffle from "lodash.shuffle";
 import styles from "../../styles/Board.module.css";
 import Card from "./Card";
 
+// TODO: take care of situation where match is made from clicking same card twice in a row
+
 const getArrayOfIndexes = () => {
   // return an array of 6 random number pairs between 0 & 11
   const originalArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
@@ -19,8 +21,6 @@ export default function Board(props) {
   const [currentCard, setCurrentCard] = useState();
   const [matchedIds, setMatchedIds] = useState([]);
 
-  console.log(matchedIds);
-
   const checkForMatch = useCallback(
     (newCard) => {
       setCurrentCard((prevCard) => {
@@ -32,8 +32,6 @@ export default function Board(props) {
     },
     [matchedIds]
   );
-
-  // console.log(props);
 
   return (
     <div className={styles.grid}>
