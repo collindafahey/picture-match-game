@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import sampleSize from "lodash.samplesize";
 import shuffle from "lodash.shuffle";
 import styles from "../../styles/Board.module.css";
@@ -16,17 +16,36 @@ const getArrayOfIndexes = () => {
 
 export default function Board(props) {
   const [indexArray] = useState(() => getArrayOfIndexes());
+  const [currentCard, setCurrentCard] = useState();
+  const [matchedIds, setMatchedIds] = useState([]);
 
-  console.log(props);
+  console.log(matchedIds);
+
+  const checkForMatch = useCallback(
+    (newCard) => {
+      setCurrentCard((prevCard) => {
+        if (prevCard === newCard) {
+          setMatchedIds([...matchedIds, newCard]);
+        }
+        return newCard;
+      });
+    },
+    [matchedIds]
+  );
+
+  // console.log(props);
 
   return (
     <div className={styles.grid}>
       {indexArray.map((item, index) => (
         <Card
           key={index}
+          checkForMatch={checkForMatch}
           description={props.data[item].alt_description}
+          id={props.data[item].id}
           imgSrc={props.data[item].urls.small}
           increaseCount={props.increaseCount}
+          matchedIds={matchedIds}
         />
       ))}
     </div>
